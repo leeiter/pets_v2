@@ -9,19 +9,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>우리 애를 부탁해</title>
 <link rel="stylesheet" href="${rootPath}/css/home.css?ver=20191222003" type="text/css" >
-<link rel="stylesheet" href="${rootPath}/css/community.css?ver=20191222002"  type="text/css" >
+<link rel="stylesheet" href="${rootPath}/css/community.css?ver=20191222003"  type="text/css" >
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(function() {
 	
 	$("#btn-write").click(function(){
-		document.location.href = "${rootPath}/community/insert"
+		document.location.href = "${rootPath}/community/service/insert"
 	})
 	
 	$(".content-body").click(function(){
 		let id = $(this).attr("data-id")
 		let auth = $(this).attr("data-auth")
-		document.location.href = "${rootPath}/community/view?id=" + id
+		document.location.href = "${rootPath}/community/service/view?id=" + id
 	})
 	
 
@@ -30,11 +30,17 @@ $(function() {
 </script>
 <style type="text/css">
 #community-nav ul li:first-child a {
+	background-color: #fff;
+	color: black;
+}
+
+
+#community-nav ul li:last-child a {
 	background-color: #e67e22;
 	color: white;
 }
 
-#community-nav ul li:first-child {
+#community-nav ul li:last-child {
 	margin-right: 10px;
 }
 
@@ -63,18 +69,18 @@ $(function() {
 		<th id="rt4">작성일</th>
 	<tr>
 	<c:choose>
-		<c:when test="${empty RELIST}">
+		<c:when test="${empty SELIST}">
 			<tr>
-				<td>후기가 없습니다</td>
+				<td>고객 문의가 없습니다</td>
 			</tr>
 		</c:when>
 		<c:otherwise>
-			<c:forEach items="${RELIST}" var="reDTO" varStatus="index">
-				<tr class="content-body" data-id="${reDTO.re_seq}">
-					<td>${reDTO.re_seq}</td>
-					<td id="re-subject">${reDTO.re_subject}</td>
-					<td>${reDTO.re_auth}</td>
-					<td>${reDTO.re_date}</td>
+			<c:forEach items="${SELIST}" var="seDTO" varStatus="index">
+				<tr class="content-body" data-id="${seDTO.se_seq}">
+					<td>${seDTO.se_seq}</td>
+					<td id="re-subject">${seDTO.se_subject}</td>
+					<td>${seDTO.se_auth}</td>
+					<td>${seDTO.se_date}</td>
 				</tr>
 			</c:forEach>
 		</c:otherwise>

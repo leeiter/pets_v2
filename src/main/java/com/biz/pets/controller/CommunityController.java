@@ -1,28 +1,19 @@
 package com.biz.pets.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import javax.xml.bind.helpers.DefaultValidationEventHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.core.style.DefaultValueStyler;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.biz.pets.domain.PageDTO;
 import com.biz.pets.domain.ReviewDTO;
-import com.biz.pets.service.PageService;
+import com.biz.pets.domain.ServiceDTO;
 import com.biz.pets.service.ReviewService;
 import com.biz.pets.service.ServiceService;
 
@@ -113,76 +104,76 @@ public class CommunityController {
 	/* Service */
 	@RequestMapping(value="/service/list",method=RequestMethod.GET)
 	public String serviceList(Model model) {
-		List<ReviewDTO> reList = rService.getAllList();
+		List<ServiceDTO> seList = sService.getAllList();
 		
-		model.addAttribute("RELIST", reList);
+		model.addAttribute("SELIST", seList);
 	
-		return "community/list";
+		return "community/service/list";
 	}
 	
 	@RequestMapping(value="/service/view",method=RequestMethod.GET)
-	public String serviceView(String id, @ModelAttribute ReviewDTO reDTO, Model model) {
-		long re_seq = 0;
+	public String serviceView(String id, @ModelAttribute ServiceDTO seDTO, Model model) {
+		long se_seq = 0;
 		try {
-			re_seq = Long.valueOf(id);
+			se_seq = Long.valueOf(id);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		reDTO = rService.getReview(re_seq);
+		seDTO = sService.getService(se_seq);
 		
-		model.addAttribute("reDTO",reDTO);
-		return "community/view";
+		model.addAttribute("seDTO",seDTO);
+		return "community/service/view";
 	}
 	
 	@RequestMapping(value="/service/insert",method=RequestMethod.GET)
-	public String serviceInsert(@ModelAttribute("reDTO") ReviewDTO reDTO, Model model) {
+	public String serviceInsert(@ModelAttribute("seDTO") ServiceDTO seDTO, Model model) {
 		Date date = new Date();
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-		reDTO.setRe_date(sd.format(date));
+		seDTO.setSe_date(sd.format(date));
 
-		model.addAttribute("reDTO",reDTO);
+		model.addAttribute("seDTO",seDTO);
 		
-		return "community/insert";
+		return "community/service/insert";
 	}
 	
 	@RequestMapping(value="/service/insert",method=RequestMethod.POST)
-	public String servicInsert(@ModelAttribute("reDTO") ReviewDTO reDTO, Model model, SessionStatus sStatus) {
-		int ret = rService.insert(reDTO);
+	public String servicInsert(@ModelAttribute("seDTO") ServiceDTO seDTO, Model model, SessionStatus sStatus) {
+		int ret = sService.insert(seDTO);
 	
 		sStatus.setComplete();
 		
-		return "redirect:/community/list";
+		return "redirect:/community/service/list";
 	}
 		
 	@RequestMapping(value="/service/update",method=RequestMethod.GET)
-	public String serviceUpdate(String id, @ModelAttribute ReviewDTO reDTO, Model model) {
-		long re_seq = 0;
+	public String serviceUpdate(String id, @ModelAttribute ServiceDTO seDTO, Model model) {
+		long se_seq = 0;
 		try {
-			re_seq = Long.valueOf(id);
+			se_seq = Long.valueOf(id);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		reDTO = rService.getReview(re_seq);
+		seDTO = sService.getService(se_seq);
 		
-		model.addAttribute("reDTO", reDTO);
-		return "community/insert";
+		model.addAttribute("seDTO", seDTO);
+		return "community/service/insert";
 	}
 
 	@RequestMapping(value="/service/update",method=RequestMethod.POST)
-	public String serviceUpdate(@ModelAttribute ReviewDTO reDTO, Model model, SessionStatus sStatus) {
+	public String serviceUpdate(@ModelAttribute ServiceDTO seDTO, Model model, SessionStatus sStatus) {
 
-		int ret = rService.update(reDTO);
+		int ret = sService.update(seDTO);
 		
 		sStatus.setComplete();
-		return "redirect:/community/list";
+		return "redirect:/community/service/list";
 	
 	}
 	
 	@RequestMapping(value="/service/delete",method=RequestMethod.GET)
-	public String serviceDelete(@ModelAttribute ReviewDTO reDTO, long re_seq) {
-		int ret = rService.delete(reDTO.getRe_seq());
+	public String serviceDelete(@ModelAttribute ServiceDTO seDTO, long se_seq) {
+		int ret = sService.delete(seDTO.getSe_seq());
 		
-		return "redirect:/community/list";
+		return "redirect:/community/service/list";
 	}
 	
 	/*

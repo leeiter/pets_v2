@@ -29,20 +29,6 @@ nav ul li:nth-child(5) a {
 	padding: 5px 0;
 }
 
-#community-nav ul li:first-child a {
-	background-color: #e67e22;
-	color: white;
-}
-
-#community-nav ul li:first-child {
-	margin-right: 10px;
-}
-
-#community-nav ul li a:hover {
-	background-color: #e67e22;
-	color: white;
-}
-
 table {
 	width: 86%;
 	margin: 0 auto;
