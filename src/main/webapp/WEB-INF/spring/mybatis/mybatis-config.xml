@@ -6,6 +6,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.biz.pets.domain.ReviewDTO" alias="ReviewDTO"/>
-		<typeAlias type="com.biz.pets.domain.ServiceDTO" alias="ServiceDTO"/>		
+		<typeAlias type="com.biz.pets.domain.ServiceDTO" alias="ServiceDTO"/>
+		<typeAlias type="com.biz.pets.domain.PageDTO" alias="PageDTO"/>		
 	</typeAliases>
 </configuration>	

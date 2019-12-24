@@ -10,10 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.biz.pets.domain.PageDTO;
 import com.biz.pets.domain.ReviewDTO;
 import com.biz.pets.domain.ServiceDTO;
+import com.biz.pets.service.PageService;
 import com.biz.pets.service.ReviewService;
 import com.biz.pets.service.ServiceService;
 
@@ -27,10 +30,18 @@ public class CommunityController {
 	@Autowired
 	ServiceService sService;
 	
-	@RequestMapping(value="/list",method=RequestMethod.GET)
-	public String list(Model model) {
-		List<ReviewDTO> reList = rService.getAllList();
+	@Autowired
+	PageService pService;
+	
+	@RequestMapping(value="/list",method=RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public String list(Model model, @RequestParam(value="currentPageNo", required = false,defaultValue = "1") int currentPageNo) {
 		
+		long totalCount = rService.totalCount();
+		PageDTO pageDTO = pService.getPagination(totalCount, currentPageNo); 
+		
+		List<ReviewDTO> reList = rService.selectPagination(pageDTO);
+		
+		model.addAttribute(pageDTO);
 		model.addAttribute("RELIST", reList);
 	
 		return "community/list";

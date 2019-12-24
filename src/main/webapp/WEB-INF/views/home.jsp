@@ -8,10 +8,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>우리 애를 부탁해</title>
-<link rel="stylesheet" href="${rootPath}/css/home.css?ver=20191222003" type="text/css" >
+<link rel="stylesheet" href="${rootPath}/css/home.css?ver=20191222004" type="text/css" >
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
+	
+	$(document).ready(function(){
+	
+		$("#btn-prev").click(function(){
+			$("#banner-two").animate({left:'-200px'})
+		})
+	
+		$("#btn-next").click(function(){
+			$("#banner-two").animate({left:'-400px'})
+		})
+	
+		$("#btn-prev").click(function(){
+			$("#banner-two").animate({left:'-0px'})
+		})
+
+	})
+
 	
 })
 </script>

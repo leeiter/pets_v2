@@ -80,6 +80,8 @@ $(function() {
 		</c:otherwise>
 	</c:choose>
 </table>
+
+	<%@ include file="/WEB-INF/views/community/pagination.jsp" %>
 	
 	<button id="btn-write">글쓰기</button>
 </div>

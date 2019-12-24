@@ -15,10 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class ReviewService {
-	
-	long maxListSize = 0;
 
-	
 	@Autowired
 	SqlSession sqlSession;
 	
@@ -31,8 +28,18 @@ public class ReviewService {
 	public void getMapper() {
 		rDao = sqlSession.getMapper(ReviewDao.class);
 	}
+	
+	public long totalCount() {
+		return rDao.proTotalCount();
+	}
+	
+	public List<ReviewDTO> selectPagination(PageDTO pageDTO) {
+		List<ReviewDTO> reList = rDao.selectPagination(pageDTO);
+		return reList;
+	}
+	
 
-	public List<ReviewDTO> getAllList() {
+	public List<ReviewDTO> selectAll() {
 		List<ReviewDTO> reList = rDao.selectAll();
 		
 		return rDao.selectAll();
@@ -55,52 +62,4 @@ public class ReviewService {
 		return rDao.delete(re_seq);
 	}
 	
-	
-	
-	
-	
-	/*
-	 * 
-	 * 
-	 * 	public List<ReviewDTO> getAllList() {
-		List<ReviewDTO> reList = rDao.selectAll();
-		// maxListSize = reList.size();
-		
-		return rDao.selectAll();
-	}
-	
-	
-	
-	public PageDTO getPage(long currentPageNo) {
-		
-
-		long maxSize = maxListSize;
-		if(maxSize > maxListSize) maxSize = maxListSize;
-		PageDTO pageDTO = pService.makePagination(maxSize, currentPageNo);
-		
-		
-		return pageDTO;
-	}
-	
-	
-	
-	
-
-	
-	public ReviewDTO getReview(long re_seq) {
-
-		
-	
-	}
-
-	public int update(ReviewDTO reviewDTO) {
-		// TODO Auto-generated method stub
-		return rDao.update(reviewDTO);
-	}
-
-	public int delete(long re_seq) {
-		// TODO Auto-generated method stub
-		
-	}
-*/
 }

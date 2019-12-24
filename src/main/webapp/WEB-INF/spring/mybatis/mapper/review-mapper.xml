@@ -5,6 +5,22 @@
   
  <mapper namespace="com.biz.pets.persistence.ReviewDao">
  
+ 	<select id="proTotalCount" resultType="Long">
+		SELECT COUNT(*) FROM tbl_review
+	</select>
+
+	<select id="selectPagination" resultType="ReviewDTO">
+		SELECT * FROM
+		(
+		    SELECT /*+ FIRST_ROWS */ ROWNUM AS NUM, IP.* FROM
+		    (
+		        SELECT /*+ INDEX_DESC(P) */ * FROM tbl_review P 
+		    ) IP
+		    WHERE ROWNUM &lt;= #{limit} 
+		) TBL
+		WHERE NUM &gt;= #{offset}
+	</select>
+	
  	<select id="selectAll" resultType="ReviewDTO">
  		SELECT * FROM tbl_review
  	</select>
